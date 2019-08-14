@@ -1,11 +1,10 @@
-const express=require('express')
-const postController=require('../controller/post')
+const express = require("express");
+const postController = require("../controller/post");
+const { requireSignIn } = require("../controller/auth");
 
-const router=express.Router()
+const router = express.Router();
 
+router.get("/", postController.getPost);
+router.post("/post",requireSignIn, postController.createPost);
 
-
-router.get('/',postController.getPost)
-router.post('/post',postController.createPost)
-
-module.exports=router
+module.exports = router;

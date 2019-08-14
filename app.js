@@ -1,30 +1,38 @@
-require('dotenv').config()
+require("dotenv").config();
 
-const express=require('express');
-const morgan=require('morgan');
-const mongoose=require('mongoose')
-const bodyParser=require('body-parser')
+const express = require("express");
+const morgan = require("morgan");
+const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
+const cookiePaerser = require("cookie-parser");
 
-const postRoutes=require('./routes/post')
+const postRoutes = require("./routes/post");
+const authRoutes = require("./routes/auth");
 
-const app=express();
-const PORT=process.env.PORT;
+const app = express();
+const PORT = process.env.PORT;
 
+mongoose
+  .connect(process.env.MONGO_DB_URL, { useNewUrlParser: true })
+  .then(() => {
+    console.log("Database successfully connected..");
+  })
+  .catch(err => {
+    console.error("Database connection failed:", err);
+  });
 
-mongoose.connect(process.env.MONGO_DB_URL,{useNewUrlParser: true}).then(()=>{
-    console.log('Database successfully connected..')
-}).catch((err)=>{
-    console.error('Database connection failed:',err)
-})
+app.use(morgan("dev"));
 
-app.use(morgan('dev'))
+app.use(cookiePaerser());
+app.use(bodyParser.json());
+app.use("/", postRoutes);
+app.use("/", authRoutes);
+app.use((err, req, res, next) => {
+  if (err.name === "UnauthorizedError") {
+    res.status(401).json({error:'unauthorized'});
+  }
+});
 
-app.use(bodyParser.json())
-app.use("/",postRoutes)
-
-
-
-
-app.listen(PORT,()=>{
-    console.log('Server is running on Port:',PORT)
-})
+app.listen(PORT, () => {
+  console.log("Server is running on Port:", PORT);
+});
