@@ -42,9 +42,10 @@ app.get("/",(req,res)=>{
   res.send("Welcome to social netowork api")
 })
 
-app.get("/webhookGithub",(req,res)=>{
+app.post("/webhookGithub",(req,res)=>{
   let githubResponse=req.body
   console.log('github response',githubResponse)
+  res.send('get it')
 })
 
 app.listen(PORT, () => {
