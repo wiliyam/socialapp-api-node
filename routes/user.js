@@ -13,8 +13,10 @@ router.get('/user/:userId',requireSignIn,user.getUser)
 router.put('/user/:userId',requireSignIn,user.hasAuthorization,user.updateUser)
 router.delete('/user/:userId',requireSignIn,user.hasAuthorization,user.removeUser)
 
+/**
+ * any route containing user id app first execute this middleware
+ */
 
-//any route containing user id app first execute this middleware
 router.param("userId",user.userById)
 
 module.exports=router
