@@ -1,4 +1,5 @@
 const mongoose=require('mongoose')
+const {ObjectId}=mongoose.Schema
 
 
 
@@ -14,6 +15,18 @@ const postSchema=new mongoose.Schema({
         requireed:'body is required',
         minlength:4,
         maxlength:2000
+    },
+    photo:{
+        data:Buffer,
+        contentType:String
+    },
+    postedBy:{
+        type:ObjectId,
+        ref:"user"
+    },
+    created:{
+        type:Date,
+        default:Date.now
     }
 })
 

@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 
 
 
-const salt=5
+const salt=process.env.SALT
 
 
   exports.encryptPassword= async password => {

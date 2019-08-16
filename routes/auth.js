@@ -1,6 +1,6 @@
 const express=require('express')
 const auth=require('../controller/auth')
-const userController=require('../controller/userController')
+const user=require('../controller/user')
 
 
 const router=express.Router()
@@ -13,6 +13,6 @@ router.get('/signOut',auth.signOut)
 
 
 //any route containing user id app first execute this middleware
-router.param("userId",userController.userById)
+router.param("userId",user.userById)
 
 module.exports=router
