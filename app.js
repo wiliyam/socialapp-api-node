@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cookiePaerser = require("cookie-parser");
 const cors=require('cors')
+const shell = require('shelljs')
 
 const postRoutes = require("./routes/post");
 const authRoutes = require("./routes/auth");
@@ -44,8 +45,9 @@ app.get("/",(req,res)=>{
 
 app.post("/webhookGithub",(req,res)=>{
   let githubResponse=req.body
-  console.log('github response',githubResponse)
-  res.send('get it')
+  shell.exec('./deploy.sh')
+  console.log('deploy running')
+  res.send('done')
 })
 
 app.listen(PORT, () => {
