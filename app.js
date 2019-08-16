@@ -42,6 +42,11 @@ app.get("/",(req,res)=>{
   res.send("Welcome to social netowork api")
 })
 
+app.get("/webhookGithub",(req,res)=>{
+  let githubResponse=req.body
+  console.log('github response',githubResponse)
+})
+
 app.listen(PORT, () => {
   console.log("Server is running on Port:", PORT);
 });
