@@ -29,7 +29,7 @@ app.use(morgan("dev"));
 app.use(cookiePaerser());
 app.use(bodyParser.json());
 app.use(cors())
-
+app.use(express.static('public'))
 app.use("/", postRoutes);
 app.use("/", authRoutes);
 app.use('/',userRoutes)
@@ -40,7 +40,7 @@ app.use((err, req, res, next) => {
 });
 
 app.get("/",(req,res)=>{
-  res.send("Welcome to social netowork api")
+  res.sendfile('index.html')
 })
 
 app.post("/webhookGithub",(req,res)=>{
